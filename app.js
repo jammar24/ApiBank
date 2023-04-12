@@ -24,7 +24,10 @@ app.use('/api/v1/transfers', transferRouter);
 
 app.all('*', (req, res, next) => {
   return next(
-    new AppError(`Cannot find ${req.originalUrl} on this server!🌐`, 404)
+    new AppError(
+      `Cannot find ${req.originalUrl} on this server!🌐`,
+      404
+    )
   );
 });
 

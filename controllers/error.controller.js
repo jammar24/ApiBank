@@ -1,7 +1,10 @@
 const AppError = require('../utils/app.Error');
 
 const handleCastError22P02 = () =>
-  new AppError('Some type of data send does not match was expected', 400);
+  new AppError(
+    'Some type of data send does not match was expected',
+    400
+  );
 
 const sendErrorDev = (err, res) => {
   res.status(err.statusCode).json({
@@ -27,7 +30,12 @@ const sendErrorProd = (err, res) => {
   }
 };
 
-const globalErrorHandler = (err, req, res, next) => {
+const globalErrorHandler = (
+  err,
+  req,
+  res,
+  next
+) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'fail';
 
@@ -38,7 +46,8 @@ const globalErrorHandler = (err, req, res, next) => {
   if (process.env.NODE_ENV === 'production') {
     let error = err;
     console.log(error);
-    if (error.parent?.code === '22P02') error = handleCastError22P02();
+    if (error.parent?.code === '22P02')
+      error = handleCastError22P02();
 
     sendErrorProd(error, res);
   }
